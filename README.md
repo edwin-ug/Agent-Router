@@ -21,20 +21,18 @@ The Escrow Router: A Spring Boot backend catches the AI's proposal and places it
 
 Human-in-the-Loop: The Portfolio Manager receives a real-time push to their Android Dashboard, reviews the AI's reasoning, and clicks APPROVE or REJECT based on macro-economic news.
 
-
 System Architecture
 
-```mermaid
 graph TD
-A[Python Quant Agent] -->|Calculates Live ATR & RSI| B(Llama 3.2 Risk Officer)
-B -->|Generates JSON Intent + Reasoning| C{Java Spring Boot Router}
-C -->|Escrows Trade Intent| D[(PostgreSQL / H2 Database)]
-C <-->|REST API Polling| E[Android Compose App]
-E -->|Human Clicks APPROVE| C
-C -->|Executes Real Trade| F[Exchange API Integration]
-E -->|Human Clicks REJECT| C
-C -->|Updates DB Status| D
-```
+    A[Python Quant Agent] -->|Calculates Live ATR & RSI| B(Llama 3.2 Risk Officer)
+    B -->|Generates Validation Artifacts| C{Java Spring Boot Relayer}
+    C -->|Escrows Trade Intent| D[(PostgreSQL Database)]
+    C <-->|REST API Polling| E[Android Compose App]
+    E -->|Human Rejects| C
+    C -->|Updates DB Status| D
+    E -->|Human Approves / Generates EIP-712 Signature| C
+    C -->|Formats & Broadcasts Payload| F[ERC-8004 Risk Router Contract]
+    F -->|On-Chain Settlement| G[(DEX / Liquidity Pools)]
 
 Tech Stack
 
