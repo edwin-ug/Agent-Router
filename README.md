@@ -1,29 +1,4 @@
-AgentRouter: Human-in-the-Loop Quant AI
-
-Tagline: Algorithmic trading bots catch falling knives. AgentRouter doesn't.
-
-AgentRouter is an enterprise-grade, distributed microservice architecture that combines the raw mathematical power of Quantitative AI with the intuitive risk-management of a Human-in-the-loop Portfolio Manager.
-
-The Problem: "The Falling Knife"
-
-During our extensive backtesting of over 20,000 candles on Binance, we discovered a fatal flaw in fully autonomous trading algorithms: They cannot read global panic. When a market flash-crashes, pure mathematical indicators (like RSI) will signal an "Oversold Buy". Autonomous bots will blindly buy the dip, get stopped out, and buy the dip again, draining the portfolio.
-
-
-The Solution: Asymmetric Risk & Human Oversight
-
-AgentRouter solves this by stripping the AI of its execution privileges and forcing it to act as an advisory "Risk Officer."
-
-Dynamic ATR Volatility: The Python Quantitative Engine calculates the Average True Range (ATR) in real-time, creating dynamic Stop Losses that widen during high volatility and tighten during consolidation.
-
-LLM Reasoning: Llama 3.2 interprets the math and packages it into a human-readable "Trade Intent".
-
-The Escrow Router: A Spring Boot backend catches the AI's proposal and places it in a "PENDING" escrow state.
-
-Human-in-the-Loop: The Portfolio Manager receives a real-time push to their Android Dashboard, reviews the AI's reasoning, and clicks APPROVE or REJECT based on macro-economic news.
-
-System Architecture
-
-graph TD
+🚀 AgentRouter: Trustless Human-in-the-Loop Quant AI (ERC-8004)Tagline: Algorithmic trading bots catch falling knives. AgentRouter doesn't.AgentRouter is an enterprise-grade, Web3-enabled microservice architecture that combines the raw mathematical power of Quantitative AI with the verifiable trust of a Human-in-the-loop Portfolio Manager, executing securely on-chain via ERC-8004 and EIP-712 signatures.⚠️ The Problem: "The Falling Knife" & The Black BoxDuring our extensive backtesting of over 20,000 candles, we discovered a fatal flaw in fully autonomous trading algorithms: They cannot read global panic, and they lack verifiable trust. When a market flash-crashes, pure mathematical indicators signal an "Oversold Buy". Black-box AI bots blindly buy the dip, get stopped out, and buy the dip again, draining on-chain capital.Furthermore, traditional AI agents operate without identity or measurable reputation, making it impossible to trust them with decentralized capital safely.🛡️ The Solution: Trust-Minimized Execution & Asymmetric RiskAgentRouter solves this by stripping the AI of its direct execution privileges and forcing it to act as an advisory "Risk Officer." It bridges the gap between off-chain ML computation and on-chain trust registries.Dynamic ATR Volatility (Drawdown Control): The Python Quantitative Engine calculates the Average True Range (ATR) in real-time. Instead of raw PnL chasing, it focuses on risk-adjusted returns by generating dynamic Stop Losses that widen during high volatility and tighten during consolidation.LLM Validation Artifacts: Llama 3.2 interprets the math and packages it into a human-readable TradeIntent JSON, serving as the foundational validation artifact.The Escrow Router: A Spring Boot backend catches the AI's proposal and places it in an off-chain "PENDING" escrow state.Human-in-the-Loop (EIP-712): The Portfolio Manager receives a real-time push to their Android Dashboard, reviews the AI's reasoning, and clicks APPROVE. This action generates a secure EIP-712 Typed Data Signature directly on the mobile device.ERC-8004 On-Chain Execution: The Spring Boot relayer takes the cryptographically signed intent and submits it to the whitelisted Risk Router contract, ensuring identity, reputation, and objective validation are recorded on-chain.🏆 Hackathon Alignment (How We Meet the Challenge)✅ Identity & Reputation (ERC-8004): AgentRouter registers its identity on-chain. By relying on ATR-based drawdown controls and strict human oversight, the agent accumulates a highly positive, objective reputation score over time.✅ Validation Artifacts: Every AI decision generates a reasoning payload (confidence, trend, RSI, ATR) that acts as a verifiable checkpoint prior to trade execution.✅ EIP-712 Signatures: The Android Mobile app acts as the secure signing enclave, utilizing EIP-712 to sign the specific TradeIntents before relaying them to the blockchain.✅ Risk Router Integration: AgentRouter does not bypass safety. All executed intents are formatted specifically to pass through the provided Hackathon Risk Router for strict daily loss and leverage compliance.🏗️ System Architecturegraph TD
     A[Python Quant Agent] -->|Calculates Live ATR & RSI| B(Llama 3.2 Risk Officer)
     B -->|Generates Validation Artifacts| C{Java Spring Boot Relayer}
     C -->|Escrows Trade Intent| D[(PostgreSQL Database)]
@@ -33,43 +8,4 @@ graph TD
     E -->|Human Approves / Generates EIP-712 Signature| C
     C -->|Formats & Broadcasts Payload| F[ERC-8004 Risk Router Contract]
     F -->|On-Chain Settlement| G[(DEX / Liquidity Pools)]
-
-Tech Stack
-
-AI & Quant Engine: Python, Pandas, yfinance, Llama 3.2 (via Ollama/Groq)
-
-Risk Router Backend: Java 17, Spring Boot, Spring Data JPA, Hibernate
-
-Mobile Dashboard: Kotlin, Android Jetpack Compose, Retrofit, Coroutines
-
-Project Demo Flow
-
-
-The Problem
-
-Autonomous trading bots are incredibly fast, but they have one fatal flaw: they catch falling knives. In my backtesting, I realized that during a flash crash, a pure math bot will blindly buy the dip over and over, draining a portfolio. I built AgentRouter to fix this by introducing Institutional Volatility Modeling and a Human in the Loop.
-
-
-The Solution: Trust-Minimized Execution & Asymmetric Risk
-
-AgentRouter solves this by stripping the AI of its direct execution privileges and forcing it to act as an advisory "Risk Officer." It bridges the gap between off-chain ML computation and on-chain trust registries.
-
-Dynamic ATR Volatility: The Python Quantitative Engine calculates the Average True Range (ATR) in real-time. Instead of raw PnL chasing, it focuses on risk-adjusted returns by generating dynamic Stop Losses that widen during high volatility and tighten during consolidation.
-
-LLM Validation Artifacts: Llama 3.2 interprets the math and packages it into a human-readable TradeIntent JSON, serving as the foundational validation artifact.
-
-The Escrow Router: A Spring Boot backend catches the AI's proposal and places it in an off-chain "PENDING" escrow state.
-
-Human-in-the-Loop (EIP-712): The Portfolio Manager receives a real-time push to their Android Dashboard, reviews the AI's reasoning, and clicks APPROVE. This action generates a secure EIP-712 Typed Data Signature directly on the mobile device.
-
-ERC-8004 On-Chain Execution: The Spring Boot relayer takes the cryptographically signed intent and submits it to the whitelisted Risk Router contract, ensuring identity, reputation, and objective validation are recorded on-chain.
-
-
-The Android App & Human Oversight
-
-This is where the human element takes control. As a Portfolio Manager, the user receives the AI's proposal on a native Android dashboard built with Kotlin and Jetpack Compose. The manager can see the live Profit and Loss, the dynamic Stop Loss, and the AI's exact reasoning. If the manager is aware of adverse market news (like a flash crash), they can simply click REJECT, saving the portfolio from an algorithmic trap. If the market setup looks safe, they click APPROVE, and Spring Boot executes the live trade.
-
-
-The Vision
-
-By combining real-time machine learning, robust Java microservices, and mobile human oversight, AgentRouter doesn't just make trades, it actively manages risk. It bridges the gap between pure quantitative speed and human intuition.
+💻 Tech StackAI & Quant Engine: Python, Pandas, yfinance, Llama 3.2 (via Ollama/Groq)Web3 Relayer Backend: Java 17, Spring Boot, Spring Data JPA, Web3j (Ethereum Integration)Mobile Signing Dashboard: Kotlin, Android Jetpack Compose, Retrofit, CoroutinesOn-Chain Infrastructure: ERC-8004 Standards, EIP-712 Typed Data, Solidity Smart Contracts🎬 Project Demo Flow1. The Hook & The ProblemAutonomous trading bots are incredibly fast, but they have one fatal flaw: they catch falling knives. In my backtesting, I realized that during a flash crash, a pure math bot will blindly buy the dip over and over, draining a portfolio. I built AgentRouter to fix this by introducing Institutional Volatility Modeling (Drawdown Control) and a Trustless Human-in-the-Loop architecture using ERC-8004.2. The AI Agent & BackendThe system starts with an off-chain Python Quantitative Engine. Rather than just relying on simple moving averages, it calculates the dynamic Average True Range (ATR) of the market in real time to establish strict risk limits. It passes this math to a local Llama 3.2 model, which packages a trade proposal with a dynamic Stop Loss. However, the AI cannot execute it directly. It sends the proposal to my Spring Boot Relayer, which holds the trade intent in Escrow.3. The Android App & EIP-712 Human OversightThis is where verifiable trust is established. As a Portfolio Manager, I receive the AI's validation artifacts on a native Android dashboard built with Kotlin. I can see the live PnL, the dynamic Stop Loss, and the AI's exact reasoning. If the manager is aware of adverse market news, they click REJECT. If the market setup is optimal, they click APPROVE.4. ERC-8004 ExecutionClicking APPROVE doesn't just send an API request—it generates a secure EIP-712 Typed Data Signature directly on the mobile device. Our Spring Boot backend acts as a relayer, taking this signed intent and submitting it to the on-chain Risk Router. By combining real-time machine learning, robust Java microservices, and ERC-8004 standard intents, AgentRouter bridges the gap between pure quantitative speed and trustless Web3 execution.
