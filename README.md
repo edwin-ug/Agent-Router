@@ -52,9 +52,19 @@ The Problem
 Autonomous trading bots are incredibly fast, but they have one fatal flaw: they catch falling knives. In my backtesting, I realized that during a flash crash, a pure math bot will blindly buy the dip over and over, draining a portfolio. I built AgentRouter to fix this by introducing Institutional Volatility Modeling and a Human in the Loop.
 
 
-The AI Agent & Backend
+The Solution: Trust-Minimized Execution & Asymmetric Risk
 
-The system starts with a Python Quantitative Engine. Rather than just relying on simple moving averages, it calculates the dynamic Average True Range (ATR) of the market in real time. It passes this strict math to a local Llama 3.2 model, which packages a trade proposal with a dynamic Stop Loss. However, the AI cannot execute it directly. Instead, it sends the proposal to My Spring Boot Risk Router, which holds the trade in Escrow.
+AgentRouter solves this by stripping the AI of its direct execution privileges and forcing it to act as an advisory "Risk Officer." It bridges the gap between off-chain ML computation and on-chain trust registries.
+
+Dynamic ATR Volatility: The Python Quantitative Engine calculates the Average True Range (ATR) in real-time. Instead of raw PnL chasing, it focuses on risk-adjusted returns by generating dynamic Stop Losses that widen during high volatility and tighten during consolidation.
+
+LLM Validation Artifacts: Llama 3.2 interprets the math and packages it into a human-readable TradeIntent JSON, serving as the foundational validation artifact.
+
+The Escrow Router: A Spring Boot backend catches the AI's proposal and places it in an off-chain "PENDING" escrow state.
+
+Human-in-the-Loop (EIP-712): The Portfolio Manager receives a real-time push to their Android Dashboard, reviews the AI's reasoning, and clicks APPROVE. This action generates a secure EIP-712 Typed Data Signature directly on the mobile device.
+
+ERC-8004 On-Chain Execution: The Spring Boot relayer takes the cryptographically signed intent and submits it to the whitelisted Risk Router contract, ensuring identity, reputation, and objective validation are recorded on-chain.
 
 
 The Android App & Human Oversight
